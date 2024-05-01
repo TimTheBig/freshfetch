@@ -1,18 +1,14 @@
-use crate::mlua;
-use crate::regex;
+use std::fs::read_to_string;
+use std::path::Path;
+use std::process::Command;
 
-use crate::errors;
-use super::kernel;
-
-use std::fs::{ read_to_string };
-use std::path::{ Path };
-use std::process::{ Command };
-
-use regex::{ Regex };
 use mlua::prelude::*;
+use regex::Regex;
 
-use crate::{ Inject };
-use kernel::{ Kernel };
+use crate::cli::Inject;
+use crate::errors;
+
+use super::kernel::Kernel;
 
 #[derive(Clone, Debug)]
 pub struct Motherboard {
@@ -22,7 +18,7 @@ pub struct Motherboard {
 }
 
 impl Motherboard {
-    pub(crate) fn new(k: &Kernel) -> Option<Self> {
+    pub fn new(k: &Kernel) -> Option<Self> {
         match k.name.as_str() {
             "Linux" => {
                 let sys_devices_virtual_dmi_id = Path::new("/sys/devices/virtual/dmi/id");
@@ -128,19 +124,31 @@ impl Inject for Motherboard {
             Ok(t) => {
                 match t.set("name", self.name.clone()) {
                     Ok(_) => (),
-                    Err(e) => { errors::handle(&format!("{}{}", errors::LUA, e)); panic!() }
+                    Err(e) => {
+                        errors::handle(&format!("{}{}", errors::LUA, e));
+                        panic!()
+                    }
                 }
                 match t.set("vendor", self.vendor.clone()) {
                     Ok(_) => (),
-                    Err(e) => { errors::handle(&format!("{}{}", errors::LUA, e)); panic!() }
+                    Err(e) => {
+                        errors::handle(&format!("{}{}", errors::LUA, e));
+                        panic!()
+                    }
                 }
                 match t.set("revision", self.revision.clone()) {
                     Ok(_) => (),
-                    Err(e) => { errors::handle(&format!("{}{}", errors::LUA, e)); panic!() }
+                    Err(e) => {
+                        errors::handle(&format!("{}{}", errors::LUA, e));
+                        panic!()
+                    }
                 }
                 match lua.globals().set("motherboard", t) {
                     Ok(_) => (),
-                    Err(e) => { errors::handle(&format!("{}{}", errors::LUA, e)); panic!() }
+                    Err(e) => {
+                        errors::handle(&format!("{}{}", errors::LUA, e));
+                        panic!()
+                    }
                 }
             }
             Err(e) => {
@@ -150,4 +158,3 @@ impl Inject for Motherboard {
         }
     }
 }
-

@@ -1,19 +1,14 @@
-use crate::mlua;
-use crate::regex;
-
-use crate::errors;
-use super::kernel;
-
-use std::fs::{ read_to_string };
+use std::fs::read_to_string;
 
 use mlua::prelude::*;
-use regex::{ Regex };
+use regex::Regex;
 
-use crate::{ Inject };
-use kernel::{ Kernel };
+use crate::{cli::Inject, errors};
+
+use super::kernel::Kernel;
 
 #[derive(Clone, Debug)]
-pub(crate) struct Host {
+pub struct Host {
     pub model: String,
 }
 
@@ -21,10 +16,11 @@ impl Host {
     pub fn new(k: &Kernel) -> Option<Self> {
         match k.name.as_str() {
             "Linux" => {
-                let mut product_name = match read_to_string("/sys/devices/virtual/dmi/id/product_name") {
-                    Ok(product_name) => product_name,
-                    Err(_) => return None,
-                };
+                let mut product_name =
+                    match read_to_string("/sys/devices/virtual/dmi/id/product_name") {
+                        Ok(product_name) => product_name,
+                        Err(_) => return None,
+                    };
                 product_name = product_name
                     .replace("\n", "")
                     .replace("To Be Filled By O.E.M.", "")
@@ -44,10 +40,10 @@ impl Host {
                     Some(Host {
                         model: product_name,
                     })
-                } else { 
+                } else {
                     None
                 }
-            },
+            }
             _ => None,
         }
     }

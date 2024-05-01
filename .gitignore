@@ -1,3 +1,5 @@
 /target
 /pkg
 /freshfetch.tar.gz
+init_cloc.txt
+after_build_cloc.txt
