@@ -18,8 +18,8 @@ pub struct Motherboard {
 }
 
 impl Motherboard {
-    pub fn new(k: &Kernel) -> Option<Self> {
-        match k.name.as_str() {
+    pub fn new(kernel: &Kernel) -> Option<Self> {
+        match kernel.name.as_str() {
             "Linux" => {
                 let sys_devices_virtual_dmi_id = Path::new("/sys/devices/virtual/dmi/id");
                 // Android
@@ -57,13 +57,13 @@ impl Motherboard {
                     None
                 }
             }
-            "Mac OS X"|"macOS" => {
+            "Mac OS X" | "macOS" | "Darwin" => {
                 // TODO: It looks to me like something from the output of
                 // `sysctl` can be used to get info of this nature. Not sure
                 // personally, and I don't own a Mac to test on.
                 None
             }
-            "BSD"|"MINIX" => {
+            "BSD" | "MINIX" => {
                 // TODO: Idk BSD or MINUX, but I think this would be something
                 // with `sysctl`.
                 None

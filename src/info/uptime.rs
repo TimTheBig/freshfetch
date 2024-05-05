@@ -10,10 +10,10 @@ use super::kernel::Kernel;
 pub struct Uptime(pub DateTime<Utc>);
 
 impl Uptime {
-    pub fn new(k: &Kernel) -> Self {
-        let uptime_seconds;
-        match k.name.as_str() {
-            "Linux" | "Windows" | "MINIX" => {
+    pub fn new(kernel: &Kernel) -> Self {
+        let uptime_seconds: i64;
+        match kernel.name.as_str() {
+            "Linux" | "Windows" | "MINIX" | "Darwin" => {
                 // Since `crate::sysinfo::SystemExt::get_uptime()` gets uptime
                 // from /proc/uptime, we should check that it exists and have a
                 // fallback.
@@ -25,7 +25,7 @@ impl Uptime {
                     // use it here.
                     let boot_time = sysinfo::System::boot_time() as i64;
                     let now_time = Utc::now().timestamp();
-                    uptime_seconds = boot_time - now_time;
+                    uptime_seconds = now_time - boot_time;
                 }
             }
             // Unknown OSes should have already exit(1)'d by now, this is just

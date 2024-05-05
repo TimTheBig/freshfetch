@@ -24,8 +24,8 @@ impl Gpu {
 pub struct Gpus(pub Vec<Gpu>);
 
 impl Gpus {
-    pub fn new(k: &Kernel) -> Option<Self> {
-        match k.name.as_str() {
+    pub fn new(kernel: &Kernel) -> Option<Self> {
+        match kernel.name.as_str() {
             "Linux" => {
                 // TODO: Make a rust binding to whatever `lspci` uses, and use
                 // that instead.

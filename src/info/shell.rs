@@ -15,11 +15,11 @@ pub struct Shell {
 }
 
 impl Shell {
-    pub fn new(k: &Kernel) -> Self {
+    pub fn new(kernel: &Kernel) -> Self {
         let name;
         let version;
-        match k.name.as_str() {
-            "Linux" | "BSD" | "Windows" => {
+        match kernel.name.as_str() {
+            "Linux" | "BSD" | "Windows" | "Darwin" => {
                 let shell_bin = String::from(
                     Path::new(&match env::var("SHELL") {
                         Ok(v) => v,

@@ -22,12 +22,14 @@ pub struct Cpu {
 }
 
 impl Cpu {
-    pub fn new(k: &Kernel) -> Option<Self> {
+    pub fn new(kernel: &Kernel) -> Option<Self> {
         let mut name: Option<String> = None;
         let mut freq: Option<f32> = None;
         let mut cores: Option<i32> = None;
-        match k.name.as_str() {
+        match kernel.name.as_str() {
+            "Darwin" => {}
             "Linux" | "MINIX" | "Windows" => {
+                // TODO macOS support.
                 // TODO: Neofetch has some code to handle oddball CPU
                 // architectures here. Idk if rust has support for those, but
                 // porting that functionality wouldn't do much harm.

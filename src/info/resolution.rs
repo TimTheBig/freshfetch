@@ -20,8 +20,8 @@ pub struct Resolution {
 }
 
 impl Resolution {
-    pub fn new(k: &Kernel) -> Option<Self> {
-        match k.name.as_str() {
+    pub fn new(kernel: &Kernel) -> Option<Self> {
+        match kernel.name.as_str() {
             "Linux" => {
                 if which("xrandr").is_some()
                     && var("DISPLAY").is_ok()

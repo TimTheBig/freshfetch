@@ -13,8 +13,8 @@ pub struct Host {
 }
 
 impl Host {
-    pub fn new(k: &Kernel) -> Option<Self> {
-        match k.name.as_str() {
+    pub fn new(kernel: &Kernel) -> Option<Self> {
+        match kernel.name.as_str() {
             "Linux" => {
                 let mut product_name =
                     match read_to_string("/sys/devices/virtual/dmi/id/product_name") {

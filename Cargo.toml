@@ -1,21 +1,21 @@
 [package]
 name = "freshfetch"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["K4rakara <jack@insertdomain.name>"]
 edition = "2021"
 
 [dependencies]
 chrono = "0.4.38"
-cmd_lib = "1.9.3"
+cmd_lib = "1.9.4"
 cmd_lib_core = "0.4.0"
 lazy_static = "1.4.0"
-regex = "1.10.4"
-sysinfo = "0.30.11"
+regex = "1.10.5"
+sysinfo = "0.30.12"
 term_size = "0.3.2"
 uname = "0.1.1"
-users = "0.11.0"
-clap = { version = "4.5.4", features = ["derive", "wrap_help", "cargo"] }
-mlua = { version = "0.9.7", features = ["luajit", "vendored"] }
+users = "0.11"
+clap = { version = "4.5.7", features = ["derive", "wrap_help", "cargo"] }
+mlua = { version = "0.9.9", features = ["luajit", "vendored"] }
 
 [build-dependencies]
-clml_rs = { git = "https://github.com/M220/clml-rs" }
+clml_rs = { git = "https://github.com/Walker-00/clml-rs" }

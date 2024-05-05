@@ -20,11 +20,11 @@ pub struct Distro {
 }
 
 impl Distro {
-    pub fn new(k: &Kernel) -> Self {
+    pub fn new(kernel: &Kernel) -> Self {
         // Create fallback values.
         let mut long_name = String::new();
         let mut short_name = String::new();
-        match k.name.as_str() {
+        match kernel.name.as_str() {
             "Linux" | "BSD" | "MINIX" => {
                 // Bedrock Linux
                 if Path::new("/bedrock/etc/bedrock-release").exists()
@@ -68,14 +68,14 @@ impl Distro {
                             let release = String::from_utf8(try_release.unwrap().stdout).expect("");
                             let lines: Vec<&str> = release.split("\n").collect();
                             if lines.len() == 1 {
-                                (String::from(lines[0]), k.name.clone())
+                                (String::from(lines[0]), kernel.name.clone())
                             } else if lines.len() >= 2 {
                                 (String::from(lines[0]), String::from(lines[1]))
                             } else {
-                                (k.name.clone(), k.name.clone())
+                                (kernel.name.clone(), kernel.name.clone())
                             }
                         } else {
-                            (k.name.clone(), k.name.clone())
+                            (kernel.name.clone(), kernel.name.clone())
                         }
                     };
                     long_name = long;
@@ -87,7 +87,7 @@ impl Distro {
         Distro {
             long_name: long_name,
             short_name: short_name,
-            architecture: k.architecture.clone(),
+            architecture: kernel.architecture.clone(),
             colors: DistroColors::new(),
         }
     }

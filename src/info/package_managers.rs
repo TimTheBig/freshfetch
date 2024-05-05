@@ -25,7 +25,7 @@ impl PackageManager {
 pub struct PackageManagers(Vec<PackageManager>);
 
 impl PackageManagers {
-    pub fn new(k: &Kernel) -> Self {
+    pub fn new(kernel: &Kernel) -> Self {
         let mut to_return = Vec::new();
 
         let has_bin = |package_manager: &str| -> bool {
@@ -53,10 +53,14 @@ impl PackageManagers {
             }))
         };
 
-        match k.name.as_str() {
-            "Linux" | "BSD" | "iPhone OS" | "Solaris" => {
+        match kernel.name.as_str() {
+            // TODO macOS support.
+            "Linux" | "BSD" | "iPhone OS" | "Solaris" | "Darwin" => {
                 if has_bin("kiss") {
                     add("kiss", "kiss l");
+                }
+                if has_bin("brew") {
+                    add("brew", "brew -v");
                 }
                 if has_bin("pacman") {
                     add("pacman", "pacman -Qq --color never");

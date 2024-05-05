@@ -14,7 +14,7 @@ use super::utils::PsAux;
 pub struct Wm(pub String);
 
 impl Wm {
-    pub fn new(k: &Kernel) -> Option<Self> {
+    pub fn new(kernel: &Kernel) -> Option<Self> {
         if env::var("WAYLAND_DISPLAY").is_ok() {
             let res = PsAux::new().grep(Grep {
                 max: Some(1_usize),
@@ -57,9 +57,9 @@ impl Wm {
                 None
             }
         } else if env::var("DISPLAY").is_ok()
-            && k.name != "macOS"
-            && k.name != "Mac OS X"
-            && k.name != "FreeMiNT"
+            && kernel.name != "macOS"
+            && kernel.name != "Mac OS X"
+            && kernel.name != "FreeMiNT"
         {
             // TODO: Port this to rust using `x11rb` or a similar lib.
             let try_output = Command::new("bash")
@@ -100,8 +100,8 @@ impl Wm {
                 }
             }
         } else {
-            match k.name.as_str() {
-                "Mac OS X" | "macOS" => {
+            match kernel.name.as_str() {
+                "Mac OS X" | "macOS" | "Darwin" => {
                     let res = PsAux::new().grep(Grep {
                         max: Some(1usize),
                         search: None,

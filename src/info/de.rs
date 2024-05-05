@@ -10,9 +10,9 @@ use super::{distro::Distro, kernel::Kernel};
 pub struct De(pub String, pub String);
 
 impl De {
-    pub fn new(k: &Kernel, d: &Distro) -> Option<Self> {
-        let to_return = match k.name.as_str() {
-            "Mac OS X" | "macOS" => Some(De(String::from("Aqua"), String::new())),
+    pub fn new(kernel: &Kernel, d: &Distro) -> Option<Self> {
+        let to_return = match kernel.name.as_str() {
+            "Mac OS X" | "macOS" | "Darwin" => Some(De(String::from("Aqua"), String::new())),
             _ => {
                 if d.short_name.starts_with("Windows") {
                     if d.short_name.starts_with("Windows 8")
