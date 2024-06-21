@@ -54,7 +54,6 @@ impl PackageManagers {
         };
 
         match kernel.name.as_str() {
-            // TODO macOS support.
             "Linux" | "BSD" | "iPhone OS" | "Solaris" => {
                 if has_bin("kiss") {
                     add("kiss", "kiss l");

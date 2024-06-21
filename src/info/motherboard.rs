@@ -59,7 +59,7 @@ impl Motherboard {
             }
             "Mac OS X" | "macOS" | "Darwin" => {
                 // TODO: It looks to me like something from the output of
-                // `sysctl` can be used to get info of this nature. Not sure
+                // `sysctl -a` can be used to get info of this nature. Not sure
                 // personally, and I don't own a Mac to test on.
                 None
             }

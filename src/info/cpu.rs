@@ -27,9 +27,7 @@ impl Cpu {
         let mut freq: Option<f32> = None;
         let mut cores: Option<i32> = None;
         match kernel.name.as_str() {
-            "Darwin" => {}
             "Linux" | "MINIX" | "Windows" => {
-                // TODO macOS support.
                 // TODO: Neofetch has some code to handle oddball CPU
                 // architectures here. Idk if rust has support for those, but
                 // porting that functionality wouldn't do much harm.
@@ -152,7 +150,8 @@ impl Cpu {
                     }
                 }
             }
-            _ => (),
+            "Darwin" => {}
+            _ => {}
         }
         if name.is_some() && freq.is_some() && cores.is_some() {
             Some(Cpu {
