@@ -55,12 +55,9 @@ impl PackageManagers {
 
         match kernel.name.as_str() {
             // TODO macOS support.
-            "Linux" | "BSD" | "iPhone OS" | "Solaris" | "Darwin" => {
+            "Linux" | "BSD" | "iPhone OS" | "Solaris" => {
                 if has_bin("kiss") {
                     add("kiss", "kiss l");
-                }
-                if has_bin("brew") {
-                    add("brew", "brew -v");
                 }
                 if has_bin("pacman") {
                     add("pacman", "pacman -Qq --color never");
@@ -125,6 +122,38 @@ impl PackageManagers {
                     if daemon_running {
                         add("snap", "snap list");
                     }
+                }
+            }
+            "Darwin" => {
+                // use zsh to run `which brew`
+                let has_brew: bool = {
+                    let try_output = Command::new("zsh")
+                        .arg("-c")
+                        .arg("which brew")
+                        .output();
+                    match try_output {
+                        Ok(output) => output.status.success(),
+                        Err(_) => false,
+                    }
+                };
+                if has_brew == true {
+                    add("brew cask", "brew list --cask");
+                    add("brew formula", "brew list --formula");
+                }
+
+                // use zsh to run `which port`
+                let has_macports: bool = {
+                    let try_output = Command::new("zsh")
+                        .arg("-c")
+                        .arg("which port")
+                        .output();
+                    match try_output {
+                        Ok(output) => output.status.success(),
+                        Err(_) => false,
+                    }
+                };
+                if has_macports == true {
+                    add("macports", "port installed");
                 }
             }
             _ => {}
