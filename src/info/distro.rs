@@ -82,6 +82,13 @@ impl Distro {
                     short_name = short;
                 }
             }
+            "Darwin" => {
+                // macOS
+                if Path::new("/System/Library/CoreServices/SystemVersion.plist").exists() {
+                    long_name = "macOS X".to_string();
+                    short_name = "Mac".to_string();
+                };
+            }
             _ => {} // Do nothing, unknown OS'es should have already exited by now.
         }
         Distro {

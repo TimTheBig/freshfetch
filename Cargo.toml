@@ -5,17 +5,17 @@ authors = ["K4rakara <jack@insertdomain.name>"]
 edition = "2021"
 
 [dependencies]
-chrono = "0.4.38"
-cmd_lib = "1.9.4"
-cmd_lib_core = "0.4.0"
-lazy_static = "1.4.0"
-regex = "1.10.5"
+chrono = "0.4"
+cmd_lib = "1.9"
+cmd_lib_core = "0.4"
+lazy_static = "1.4"
+regex = "1.10"
 sysinfo = "0.30.12"
 term_size = "0.3.2"
-uname = "0.1.1"
+uname = "0.1"
 users = "0.11"
-clap = { version = "4.5.7", features = ["derive", "wrap_help", "cargo"] }
-mlua = { version = "0.9.9", features = ["luajit", "vendored"] }
+clap = { version = "4.5", features = ["derive", "wrap_help", "cargo"] }
+mlua = { version = "0.9", features = ["luajit", "vendored"] }
 
 [build-dependencies]
-clml_rs = { git = "https://github.com/Walker-00/clml-rs" }
+clml_rs = { git = "https://github.com/Walker-00/clml-rs" } # rust 2021 version of clml
